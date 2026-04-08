@@ -1,6 +1,5 @@
  "use client"
 
- import Image from "next/image"
  import Link from "next/link"
  import * as React from "react"
  import { Menu, X } from "lucide-react"
@@ -69,15 +68,13 @@
          )}
        >
          <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-           <Link href="#top" className="flex items-center gap-3">
-             <Image
-               src="/logo.jpg"
-               alt="Skerp Slijpservice"
-               width={180}
-               height={48}
-               priority
-               className="h-9 w-auto md:h-10"
-             />
+           <Link href="#top" className="flex flex-col items-start">
+             <span className="font-heading text-2xl font-extrabold tracking-tighter uppercase text-[#f5f5f5] md:text-3xl">
+               SKERP
+             </span>
+             <span className="-mt-1 text-[10px] tracking-widest uppercase text-[#a3a3a3]">
+               SLIJPSERVICE
+             </span>
            </Link>
 
            <div className="hidden md:flex">
