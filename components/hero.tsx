@@ -20,13 +20,13 @@
        <div className="mx-auto flex min-h-screen max-w-6xl items-center px-5">
          <div className="max-w-3xl py-24">
            <p className="font-heading text-xs tracking-[0.22em] text-muted-foreground">
-             MESSENSLIJPERIJ — LEEUWARDEN
+            MESSENSLIJPERIJ, LEEUWARDEN
            </p>
            <h1 className="mt-5 font-heading text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl md:text-6xl">
             Slijpwerk uit Leeuwarden, scherpte voor het leven.
            </h1>
            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-             Van japans koksmes tot zakmes — Skerp brengt elk lemmet terug naar
+            Van japans koksmes tot zakmes, Skerp brengt elk lemmet terug naar
              fabrieksstaat. Door een vakman, in Leeuwarden.
            </p>
 

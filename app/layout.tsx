@@ -15,13 +15,13 @@ const fontHeading = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: "Skerp Slijpservice — Messen slijpen in Leeuwarden",
+  title: "Skerp Slijpservice, messen slijpen in Leeuwarden",
   description:
     "Vakkundig messen slijpen in Leeuwarden. Van keukenmes tot japans staal, scheermesscherp terug door een vakman.",
   applicationName: "Skerp Slijpservice",
   metadataBase: new URL("https://skerp.vercel.app"),
   openGraph: {
-    title: "Skerp Slijpservice — Messen slijpen in Leeuwarden",
+    title: "Skerp Slijpservice, messen slijpen in Leeuwarden",
     description:
       "Vakkundig messen slijpen in Leeuwarden. Van keukenmes tot japans staal, scheermesscherp terug door een vakman.",
     type: "website",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "/hero.jpg",
         width: 1200,
         height: 630,
-        alt: "Skerp Slijpservice — messen slijpen in Leeuwarden",
+        alt: "Skerp Slijpservice, messen slijpen in Leeuwarden",
       },
     ],
   },

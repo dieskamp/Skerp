@@ -25,7 +25,7 @@
            <div className="mt-6 space-y-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
              <p>
                Skerp Slijpservice is het werk van Peter van der Rol. Wat begon
-               als een hobby — het restaureren en slijpen van eigen messen — groeide
+              als een hobby, het restaureren en slijpen van eigen messen, groeide
                uit tot een ambacht waar precisie en gevoel voor staal centraal
                staan.
              </p>
@@ -36,7 +36,7 @@
              </p>
              <p>
                Waarom? Een scherp mes is veiliger, sneller en gewoon leuker om mee
-               te werken — thuis én professioneel.
+              te werken, thuis én professioneel.
              </p>
            </div>
          </div>
