@@ -1,15 +1,20 @@
  "use client"
 
  import Cal, { getCalApi } from "@calcom/embed-react"
- import * as React from "react"
+ import { useEffect } from "react"
 
  export function Afspraak() {
-   React.useEffect(() => {
+   useEffect(() => {
      ;(async () => {
-       const cal = await getCalApi({ namespace: "skerp" })
+       const cal = await getCalApi({ namespace: "slijpafspraak" })
        cal("ui", {
          theme: "dark",
-         styles: { branding: { brandColor: "#60a5fa" } },
+         cssVarsPerTheme: {
+           dark: { "cal-brand": "#60a5fa" },
+           light: { "cal-brand": "#60a5fa" },
+         },
+         hideEventTypeDetails: false,
+         layout: "month_view",
        })
      })()
    }, [])
@@ -28,18 +33,14 @@
            mail.
          </p>
 
-         <div className="mx-auto mt-10 max-w-3xl rounded-sm border border-border bg-card p-6">
+         <div className="mx-auto mt-10 max-w-3xl rounded-sm border border-[#2a2a2a] bg-card p-6">
            <Cal
-             namespace="skerp"
-             calLink="skerp-slijpservice/intake"
-             style={{ width: "100%" }}
-             config={{
-               theme: "dark",
-             }}
+             namespace="slijpafspraak"
+             calLink="skerp/slijpafspraak"
+             calOrigin="https://cal.eu"
+             style={{ width: "100%", height: "100%", overflow: "scroll" }}
+             config={{ layout: "month_view" }}
            />
-           <p className="mt-4 text-xs text-muted-foreground">
-             TODO: vervang de Cal.com username zodra het account live is.
-           </p>
          </div>
        </div>
      </section>

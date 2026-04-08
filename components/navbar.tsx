@@ -71,7 +71,7 @@
          <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
            <Link href="#top" className="flex items-center gap-3">
              <Image
-               src="/logo.png"
+               src="/logo.jpg"
                alt="Skerp Slijpservice"
                width={120}
                height={32}
