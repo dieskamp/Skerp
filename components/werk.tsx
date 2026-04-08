@@ -26,19 +26,15 @@
                key={f.src}
                className={[
                  "relative overflow-hidden rounded-sm border border-border bg-muted",
-                 idx === 0 ? "md:col-span-7 md:row-span-2" : "",
-                 idx === 1 ? "md:col-span-5" : "",
-                 idx === 2 ? "md:col-span-5" : "",
-                 idx === 3 ? "md:col-span-7" : "",
+                 "h-36 sm:h-44 md:h-52",
+                 idx === 0 ? "md:col-span-6" : "",
+                 idx === 1 ? "md:col-span-6" : "",
+                 idx === 2 ? "md:col-span-4" : "",
+                 idx === 3 ? "md:col-span-4" : "",
                  idx === 4 ? "md:col-span-4" : "",
-                 idx === 5 ? "md:col-span-8" : "",
+                 idx === 5 ? "md:col-span-12 md:h-56" : "",
                ].join(" ")}
              >
-               <div
-                 className={
-                   idx === 0 ? "aspect-[16/10] md:aspect-[16/9]" : "aspect-square"
-                 }
-               />
                <Image src={f.src} alt={f.alt} fill className="object-cover" />
              </div>
            ))}
