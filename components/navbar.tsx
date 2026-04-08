@@ -73,10 +73,10 @@
              <Image
                src="/logo.jpg"
                alt="Skerp Slijpservice"
-               width={120}
-               height={32}
+               width={180}
+               height={48}
                priority
-               className="h-7 w-auto"
+               className="h-9 w-auto md:h-10"
              />
            </Link>
 
