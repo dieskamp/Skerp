@@ -248,6 +248,47 @@ html[data-preload] body {
   }
 }
 
+/* ---------------------------------------------------------------------
+   Split-tekst: verborgen tot GSAP hem gesplitst heeft, zodat letters niet
+   eerst flitsen. Vangnet: na 2,5 s altijd zichtbaar, ook als JS faalt.
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js] .split-pending {
+    visibility: hidden;
+    animation: split-failsafe 0s linear 2.5s forwards;
+  }
+}
+@keyframes scrollhint {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+@keyframes split-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+.split-pending .word {
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------
+   Hero-snede: --cut gaat van 0 (heel beeld) naar 1 (alles samengeknepen
+   tot één diagonale lijn), aangestuurd door ScrollTrigger.
+   --------------------------------------------------------------------- */
+.hero-stage {
+  --cut: 0;
+  clip-path: polygon(
+    0 calc(70% * var(--cut)),
+    100% calc(30% * var(--cut)),
+    100% calc(100% - 70% * var(--cut)),
+    0 calc(100% - 30% * var(--cut))
+  );
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
