@@ -63,7 +63,7 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
+      className="overflow-hidden text-sm data-open:animate-[skerp-accordion-open_0.55s_cubic-bezier(0.16,1,0.3,1)] data-closed:animate-[skerp-accordion-close_0.4s_cubic-bezier(0.16,1,0.3,1)]"
       {...props}
     >
       <div

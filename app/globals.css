@@ -289,6 +289,48 @@ html[data-preload] body {
   );
 }
 
+/* Vloeiende hoogte voor de FAQ-accordeon */
+@keyframes skerp-accordion-open {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes skerp-accordion-close {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* Roterende lichtrand om de afspraak-embed */
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+.cta-border {
+  background:
+    conic-gradient(
+      from var(--border-angle),
+      transparent 0deg 250deg,
+      var(--edge) 300deg,
+      var(--chrome) 330deg,
+      transparent 360deg
+    ),
+    var(--steel-700);
+  animation: border-spin 5s linear infinite;
+}
+@keyframes border-spin {
+  to {
+    --border-angle: 360deg;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -13,6 +13,7 @@ type SplitTextProps = {
   as?: Tag
   children: string
   className?: string
+  id?: string
   /** "load": direct na de preloader. "scroll": zodra het in beeld komt. */
   trigger?: "load" | "scroll"
   delay?: number
@@ -28,6 +29,7 @@ export function SplitText({
   as: Tag = "div",
   children,
   className,
+  id,
   trigger = "scroll",
   delay = 0,
   stagger = 0.02,
@@ -72,6 +74,7 @@ export function SplitText({
 
   return (
     <Tag
+      id={id}
       ref={(node: HTMLElement | null) => {
         ref.current = node
       }}

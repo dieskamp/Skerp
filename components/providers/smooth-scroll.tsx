@@ -1,6 +1,7 @@
 "use client"
 
 import Lenis from "lenis"
+import { MotionConfig } from "motion/react"
 import { useEffect } from "react"
 
 import { gsap, ScrollTrigger } from "@/lib/gsap"
@@ -38,5 +39,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     }
   }, [reducedMotion])
 
-  return children
+  // MotionConfig: alle motion-animaties respecteren ook prefers-reduced-motion
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>
 }
