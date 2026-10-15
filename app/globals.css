@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "lenis/dist/lenis.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -8,9 +9,24 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
   --font-heading: var(--font-heading);
+
+  /* Skerp brand tokens as Tailwind colors (bg-steel-900, text-chrome, ...) */
+  --color-steel-950: var(--steel-950);
+  --color-steel-900: var(--steel-900);
+  --color-steel-800: var(--steel-800);
+  --color-steel-700: var(--steel-700);
+  --color-steel-600: var(--steel-600);
+  --color-steel-400: var(--steel-400);
+  --color-steel-300: var(--steel-300);
+  --color-chrome: var(--chrome);
+  --color-edge: var(--edge);
+  --color-edge-soft: var(--edge-soft);
+  --color-spark: var(--spark);
+  --color-spark-hot: var(--spark-hot);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -50,42 +66,80 @@
 }
 
 :root {
-  /* Brand palette (dark-first) */
-  --background: #0a0a0a;
-  --foreground: #f5f5f5;
-  --muted: #141414;
-  --muted-foreground: #a3a3a3;
-  --card: #1a1a1a;
-  --card-foreground: #f5f5f5;
-  --popover: #1a1a1a;
-  --popover-foreground: #f5f5f5;
+  /* ------------------------------------------------------------------
+     Skerp design tokens: geslepen staal dat licht vangt
+     ------------------------------------------------------------------ */
 
-  /* Accent (sparingly) */
-  --primary: #60a5fa;
-  --primary-foreground: #0a0a0a;
-  --accent: #60a5fa;
-  --accent-foreground: #0a0a0a;
-  --ring: #60a5fa;
+  /* Staal, van bijna zwart naar licht */
+  --steel-950: #060708;
+  --steel-900: #0b0d10;
+  --steel-800: #13161a;
+  --steel-700: #1c2026;
+  --steel-600: #2a3038;
+  --steel-400: #6b7480;
+  --steel-300: #a4acb6;
 
-  /* Surfaces/borders */
-  --border: #2a2a2a;
-  --input: #2a2a2a;
-  --secondary: #141414;
-  --secondary-foreground: #f5f5f5;
+  /* Gepolijst chroom */
+  --chrome: #e9edf2;
+  --chrome-gradient: linear-gradient(
+    100deg,
+    #6b7480 0%,
+    #e9edf2 22%,
+    #8c95a1 38%,
+    #ffffff 52%,
+    #9aa3ae 68%,
+    #e9edf2 84%,
+    #6b7480 100%
+  );
+
+  /* Koel blauw accent: de snede die licht vangt */
+  --edge: #8fd0ff;
+  --edge-soft: rgba(143, 208, 255, 0.14);
+
+  /* Vonken van de slijpsteen */
+  --spark: #ff9b3d;
+  --spark-hot: #fff3dc;
+
+  /* Grain overlay */
+  --grain-opacity: 0.05;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-height: 4.5rem;
+
+  /* shadcn semantic mapping */
+  --background: var(--steel-950);
+  --foreground: var(--chrome);
+  --muted: var(--steel-800);
+  --muted-foreground: var(--steel-300);
+  --card: var(--steel-900);
+  --card-foreground: var(--chrome);
+  --popover: var(--steel-900);
+  --popover-foreground: var(--chrome);
+
+  --primary: var(--edge);
+  --primary-foreground: var(--steel-950);
+  --accent: var(--edge);
+  --accent-foreground: var(--steel-950);
+  --ring: var(--edge);
+
+  --border: var(--steel-700);
+  --input: var(--steel-700);
+  --secondary: var(--steel-800);
+  --secondary-foreground: var(--chrome);
 
   --destructive: #ef4444;
 
-  /* Keep shadcn sidebar vars defined (not used yet) */
-  --sidebar: #141414;
-  --sidebar-foreground: #f5f5f5;
-  --sidebar-primary: #60a5fa;
-  --sidebar-primary-foreground: #0a0a0a;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #f5f5f5;
-  --sidebar-border: #2a2a2a;
-  --sidebar-ring: #60a5fa;
+  --sidebar: var(--steel-800);
+  --sidebar-foreground: var(--chrome);
+  --sidebar-primary: var(--edge);
+  --sidebar-primary-foreground: var(--steel-950);
+  --sidebar-accent: var(--steel-900);
+  --sidebar-accent-foreground: var(--chrome);
+  --sidebar-border: var(--steel-700);
+  --sidebar-ring: var(--edge);
 
-  /* Radius: industrial (minimal rounding) */
+  /* Radius: industrieel, nauwelijks afgerond */
   --radius: 0.25rem;
 
   color-scheme: dark;
@@ -99,39 +153,113 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+    scroll-padding-top: var(--nav-height);
   }
-}
-
-@layer base {
   body {
+    @apply bg-background text-foreground;
     background-image:
-      radial-gradient(1200px 800px at 50% 0%, rgba(96, 165, 250, 0.12), transparent 60%),
-      radial-gradient(900px 600px at 20% 20%, rgba(245, 245, 245, 0.06), transparent 55%),
-      radial-gradient(900px 600px at 80% 30%, rgba(245, 245, 245, 0.04), transparent 55%);
+      radial-gradient(1200px 700px at 50% -10%, var(--edge-soft), transparent 60%),
+      radial-gradient(800px 600px at 15% 15%, rgba(233, 237, 242, 0.04), transparent 55%);
     background-attachment: fixed;
   }
 
-  /* Subtle grain overlay (~3% opacity) */
+  ::selection {
+    background: var(--edge);
+    color: var(--steel-950);
+  }
+
+  /* Zichtbare focus overal, ook als de custom cursor actief is */
+  :focus-visible {
+    outline: 2px solid var(--edge);
+    outline-offset: 3px;
+  }
+
+  /* Grain/noise overlay */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
-    opacity: 0.03;
+    z-index: 60;
+    opacity: var(--grain-opacity);
     mix-blend-mode: overlay;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  }
+}
+
+@layer components {
+  /* Chroom-tekst: geslepen staal dat licht vangt */
+  .text-chrome-gradient {
+    background-image: var(--chrome-gradient);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  /* Ensure main content stays above grain */
-  body > * {
-    position: relative;
-    z-index: 1;
+  /* Kleine label-tekst boven koppen */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--steel-300);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Custom cursor: verberg de native cursor alleen als de custom cursor
+   actief is (fijne pointer + hover), en nooit in formulieren of iframes.
+   --------------------------------------------------------------------- */
+html.has-custom-cursor,
+html.has-custom-cursor a,
+html.has-custom-cursor button,
+html.has-custom-cursor [role="button"] {
+  cursor: none;
+}
+html.has-custom-cursor input,
+html.has-custom-cursor textarea,
+html.has-custom-cursor select,
+html.has-custom-cursor iframe {
+  cursor: auto;
+}
+
+/* ---------------------------------------------------------------------
+   Preloader: het inline script in <head> zet data-preload op <html> bij
+   het eerste bezoek. Zonder JS of bij reduced motion verschijnt hij niet.
+   De CSS-animatie is een vangnet zodat hij nooit blijft hangen.
+   --------------------------------------------------------------------- */
+.preloader {
+  display: none;
+}
+html[data-preload] .preloader {
+  display: flex;
+  animation: preloader-failsafe 0.3s linear 1.6s forwards;
+}
+html[data-preload] body {
+  overflow: hidden;
+}
+@keyframes preloader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  html[data-preload] .preloader {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

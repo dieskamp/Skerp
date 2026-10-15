@@ -3,7 +3,7 @@ import { Diensten } from "@/components/diensten"
 import { Faq } from "@/components/faq"
 import { Footer } from "@/components/footer"
 import { Hero } from "@/components/hero"
-import { Navbar } from "@/components/navbar"
+import { Navbar } from "@/components/sections/navbar"
 import { Over } from "@/components/over"
 import { Werk } from "@/components/werk"
 import { Werkwijze } from "@/components/werkwijze"
@@ -40,7 +40,7 @@ export default function Home() {
       />
 
       <Navbar />
-      <main>
+      <main id="inhoud">
         <Hero />
         <Over />
         <Diensten />
