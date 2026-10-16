@@ -1,12 +1,14 @@
-import { Afspraak } from "@/components/afspraak"
-import { Diensten } from "@/components/diensten"
-import { Faq } from "@/components/faq"
-import { Footer } from "@/components/footer"
-import { Hero } from "@/components/hero"
-import { Navbar } from "@/components/navbar"
-import { Over } from "@/components/over"
-import { Werk } from "@/components/werk"
-import { Werkwijze } from "@/components/werkwijze"
+import { Marquee } from "@/components/motion/marquee"
+import { Afspraak } from "@/components/sections/afspraak"
+import { Diensten } from "@/components/sections/diensten"
+import { Faq } from "@/components/sections/faq"
+import { Footer } from "@/components/sections/footer"
+import { Hero } from "@/components/sections/hero"
+import { Navbar } from "@/components/sections/navbar"
+import { Over } from "@/components/sections/over"
+import { VoorNa } from "@/components/sections/voor-na"
+import { Werk } from "@/components/sections/werk"
+import { Werkwijze } from "@/components/sections/werkwijze"
 
 export default function Home() {
   return (
@@ -40,12 +42,14 @@ export default function Home() {
       />
 
       <Navbar />
-      <main>
+      <main id="inhoud">
         <Hero />
         <Over />
         <Diensten />
         <Werkwijze />
+        <VoorNa />
         <Werk />
+        <Marquee text="Skerp · Slijpservice · Leeuwarden · " />
         <Afspraak />
         <Faq />
       </main>
