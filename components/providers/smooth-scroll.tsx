@@ -1,11 +1,13 @@
 "use client"
 
 import Lenis from "lenis"
-import { MotionConfig } from "motion/react"
+import { LazyMotion, MotionConfig } from "motion/react"
 import { useEffect } from "react"
 
 import { gsap, ScrollTrigger } from "@/lib/gsap"
-import { useReducedMotion } from "@/lib/use-media-query"
+import { useFinePointer, useReducedMotion } from "@/lib/use-media-query"
+
+const loadMotionFeatures = () => import("@/lib/motion-features").then((mod) => mod.default)
 
 /**
  * Smooth scroll met Lenis, aangedreven door de GSAP-ticker zodat
@@ -14,9 +16,11 @@ import { useReducedMotion } from "@/lib/use-media-query"
  */
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const reducedMotion = useReducedMotion()
+  // Op touchscreens voegt Lenis niets toe (native scroll is daar al soepel).
+  const finePointer = useFinePointer()
 
   useEffect(() => {
-    if (reducedMotion) return
+    if (reducedMotion || !finePointer) return
 
     const lenis = new Lenis({
       autoRaf: false,
@@ -37,8 +41,13 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       gsap.ticker.lagSmoothing(500, 33)
       lenis.destroy()
     }
-  }, [reducedMotion])
+  }, [reducedMotion, finePointer])
 
   // MotionConfig: alle motion-animaties respecteren ook prefers-reduced-motion
-  return <MotionConfig reducedMotion="user">{children}</MotionConfig>
+  // LazyMotion: de animatie-features van motion komen in een los, later geladen bestand.
+  return (
+    <LazyMotion features={loadMotionFeatures}>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </LazyMotion>
+  )
 }

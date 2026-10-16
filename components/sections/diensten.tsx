@@ -7,7 +7,8 @@ import { KnifeIcon } from "@/components/icons/knife"
 import { Reveal } from "@/components/motion/reveal"
 import { SectionHeading } from "@/components/motion/section-heading"
 import { TiltCard } from "@/components/motion/tilt-card"
-import { gsap, useGSAP } from "@/lib/gsap"
+import { gsap } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 
 const diensten = [
@@ -53,7 +54,7 @@ export function Diensten() {
   const grid = useRef<HTMLUListElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       if (reducedMotion) return
       const cards = gsap.utils.toArray<HTMLElement>(".dienst")
@@ -64,7 +65,7 @@ export function Diensten() {
         rotation: () => gsap.utils.random(-18, 18),
         rotateX: 55,
         scale: 0.8,
-        autoAlpha: 0,
+        opacity: 0,
         stagger: 0.08,
         ease: "power3.out",
         scrollTrigger: { trigger: grid.current, start: "top 95%", end: "top 35%", scrub: 1 },

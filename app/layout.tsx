@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Big_Shoulders, Inter, JetBrains_Mono } from "next/font/google";
+import { Big_Shoulders, Inter } from "next/font/google";
 
 import { CustomCursor } from "@/components/motion/custom-cursor";
 import { Preloader } from "@/components/motion/preloader";
@@ -22,12 +22,6 @@ const fontHeading = Big_Shoulders({
   // Next heeft geen metrics voor deze font; zelf een smalle fallback kiezen.
   adjustFontFallback: false,
   fallback: ["Arial Narrow", "Roboto Condensed", "sans-serif"],
-});
-
-const fontMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -65,7 +59,7 @@ export default function RootLayout({
   return (
     <html
       lang="nl"
-      className={`${fontSans.variable} ${fontHeading.variable} ${fontMono.variable} dark h-full antialiased`}
+      className={`${fontSans.variable} ${fontHeading.variable} dark h-full antialiased`}
       // Het inline script zet data-preload vóór hydration; dat is bewust.
       suppressHydrationWarning
     >

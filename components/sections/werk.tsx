@@ -3,16 +3,7 @@
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
-import {
-  AnimatePresence,
-  animate,
-  motion,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from "motion/react"
+import { AnimatePresence, animate, m, useMotionValue, useScroll, useSpring, useTransform, useVelocity } from "motion/react"
 
 import { SectionHeading } from "@/components/motion/section-heading"
 import { useReducedMotion } from "@/lib/use-media-query"
@@ -94,7 +85,7 @@ export function Werk() {
       </div>
 
       <div ref={viewport} className="mt-14 overflow-hidden pb-28 md:pb-40">
-        <motion.ul
+        <m.ul
           ref={track}
           drag="x"
           dragConstraints={viewport}
@@ -123,10 +114,9 @@ export function Werk() {
                   if (!dragged.current) setOpen(i)
                 }}
                 onFocus={() => bringIntoView(i)}
-                aria-label={`Open foto: ${f.alt}`}
                 className="group block w-full text-left"
               >
-                <motion.div
+                <m.div
                   layoutId={`foto-${i}`}
                   className={cn("relative overflow-hidden rounded-sm border border-steel-700 bg-steel-800", f.ratio)}
                 >
@@ -139,7 +129,7 @@ export function Werk() {
                     className="object-cover transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-steel-950/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100" />
-                </motion.div>
+                </m.div>
                 <span className="mt-3 flex items-center gap-3 font-mono text-[11px] tracking-[0.18em] text-steel-400 uppercase">
                   <span className="text-edge">{String(i + 1).padStart(2, "0")}</span>
                   {f.alt}
@@ -147,12 +137,12 @@ export function Werk() {
               </button>
             </li>
           ))}
-        </motion.ul>
+        </m.ul>
       </div>
 
       <AnimatePresence>
         {current && open !== null ? (
-          <motion.div
+          <m.div
             key="lightbox"
             role="dialog"
             aria-modal="true"
@@ -170,13 +160,13 @@ export function Werk() {
               onClick={close}
               className="absolute inset-0 bg-steel-950/90 backdrop-blur-md"
             />
-            <motion.div
+            <m.div
               layoutId={`foto-${open}`}
               className="relative h-[80svh] w-full max-w-5xl overflow-hidden rounded-sm"
               transition={{ type: "spring", stiffness: 220, damping: 30 }}
             >
               <Image src={current.src} alt={current.alt} fill sizes="100vw" className="object-contain" />
-            </motion.div>
+            </m.div>
 
             <div className="absolute top-4 right-4 flex gap-2">
               <button
@@ -210,7 +200,7 @@ export function Werk() {
                 <ChevronRight className="size-5" />
               </button>
             </div>
-          </motion.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
     </section>

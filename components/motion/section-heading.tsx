@@ -3,7 +3,8 @@
 import { useRef } from "react"
 
 import { SplitText } from "@/components/motion/split-text"
-import { gsap, useGSAP } from "@/lib/gsap"
+import { gsap } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 import { cn } from "@/lib/utils"
 
@@ -20,7 +21,7 @@ export function SectionHeading({ index, eyebrow, title, id, className }: Section
   const ref = useRef<HTMLDivElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       if (reducedMotion) return
       gsap.from(".sh-line", {
@@ -31,7 +32,7 @@ export function SectionHeading({ index, eyebrow, title, id, className }: Section
       })
       gsap.from(".sh-meta", {
         x: -20,
-        autoAlpha: 0,
+        opacity: 0,
         duration: 0.8,
         stagger: 0.1,
         ease: "expo.out",

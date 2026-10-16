@@ -1,17 +1,38 @@
 "use client"
 
 import Cal, { getCalApi } from "@calcom/embed-react"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { Reveal } from "@/components/motion/reveal"
-import { gsap, SplitText, useGSAP } from "@/lib/gsap"
+import { gsap, SplitText } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 
 export function Afspraak() {
   const root = useRef<HTMLElement>(null)
   const reducedMotion = useReducedMotion()
+  const embedSlot = useRef<HTMLDivElement>(null)
+  const [loadCal, setLoadCal] = useState(false)
+
+  // Cal.com (een zware embed) pas laden als de bezoeker in de buurt komt.
+  useEffect(() => {
+    const slot = embedSlot.current
+    if (!slot) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoadCal(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: "800px 0px" }
+    )
+    observer.observe(slot)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
+    if (!loadCal) return
     ;(async () => {
       const cal = await getCalApi({ namespace: "slijpafspraak" })
       cal("ui", {
@@ -24,9 +45,9 @@ export function Afspraak() {
         layout: "month_view",
       })
     })()
-  }, [])
+  }, [loadCal])
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       if (reducedMotion) return
       const title = root.current?.querySelector<HTMLElement>(".cta-title")
@@ -57,7 +78,7 @@ export function Afspraak() {
       gsap.from(".cta-frame", {
         y: 120,
         rotateX: 25,
-        autoAlpha: 0,
+        opacity: 0,
         duration: 1.4,
         ease: "expo.out",
         scrollTrigger: { trigger: ".cta-frame", start: "top 90%", once: true },
@@ -99,7 +120,8 @@ export function Afspraak() {
 
         <div className="mt-14 [perspective:1400px]">
           <div className="cta-frame cta-border relative mx-auto max-w-3xl rounded-sm p-px">
-            <div className="relative rounded-sm bg-steel-900 p-4 sm:p-6" data-lenis-prevent>
+            <div ref={embedSlot} className="relative min-h-[28rem] rounded-sm bg-steel-900 p-4 sm:p-6" data-lenis-prevent>
+              {loadCal ? (
               <Cal
                 namespace="slijpafspraak"
                 calLink="skerp/slijpafspraak"
@@ -107,6 +129,7 @@ export function Afspraak() {
                 style={{ width: "100%", height: "100%", overflow: "scroll" }}
                 config={{ layout: "month_view" }}
               />
+              ) : null}
             </div>
           </div>
         </div>

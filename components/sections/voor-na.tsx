@@ -4,7 +4,8 @@ import Image from "next/image"
 import { useRef, useState } from "react"
 
 import { SectionHeading } from "@/components/motion/section-heading"
-import { gsap, useGSAP } from "@/lib/gsap"
+import { gsap } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 
 /**
@@ -18,7 +19,7 @@ export function VoorNa() {
   const [pos, setPos] = useState(50)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       if (reducedMotion) return
       const state = { p: 50 }
@@ -30,7 +31,7 @@ export function VoorNa() {
       gsap.from(frame.current, {
         scale: 0.85,
         rotateX: 18,
-        autoAlpha: 0,
+        opacity: 0,
         duration: 1.4,
         ease: "expo.out",
         scrollTrigger: { trigger: frame.current, start: "top 85%", once: true },

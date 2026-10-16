@@ -3,7 +3,8 @@
 import Image from "next/image"
 import { useRef } from "react"
 
-import { gsap, useGSAP } from "@/lib/gsap"
+import { gsap } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 import { cn } from "@/lib/utils"
 
@@ -19,7 +20,7 @@ export function ParallaxImage({ src, alt, sizes, className }: ParallaxImageProps
   const ref = useRef<HTMLDivElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       if (reducedMotion) return
       gsap.fromTo(

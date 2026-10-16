@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useAnimationFrame, useMotionValue, useScroll, useSpring, useTransform, useVelocity, wrap } from "motion/react"
+import { m, useAnimationFrame, useMotionValue, useScroll, useSpring, useTransform, useVelocity, wrap } from "motion/react"
 import { useRef } from "react"
 
 import { useReducedMotion } from "@/lib/use-media-query"
@@ -28,7 +28,7 @@ export function Marquee({ text, speed = 3 }: { text: string; speed?: number }) {
 
   return (
     <div aria-hidden="true" className="relative overflow-hidden border-y border-steel-800 py-6 select-none">
-      <motion.div className="flex w-max whitespace-nowrap" style={{ x }}>
+      <m.div className="flex w-max whitespace-nowrap" style={{ x }}>
         {Array.from({ length: 4 }, (_, i) => (
           <span
             key={i}
@@ -37,7 +37,7 @@ export function Marquee({ text, speed = 3 }: { text: string; speed?: number }) {
             {text}
           </span>
         ))}
-      </motion.div>
+      </m.div>
     </div>
   )
 }

@@ -3,7 +3,8 @@
 import { useRef } from "react"
 
 import { SectionHeading } from "@/components/motion/section-heading"
-import { gsap, useGSAP } from "@/lib/gsap"
+import { gsap } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 
 const stappen = [
@@ -41,7 +42,7 @@ export function Werkwijze() {
   const root = useRef<HTMLElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       if (reducedMotion) return
       const track = root.current?.querySelector<HTMLElement>(".ww-track")
@@ -88,7 +89,7 @@ export function Werkwijze() {
         )
         gsap.from(panel.querySelectorAll(".ww-text"), {
           x: 120,
-          autoAlpha: 0,
+          opacity: 0,
           stagger: 0.1,
           ease: "none",
           scrollTrigger: { ...shared, start: "left 90%", end: "left 45%" },

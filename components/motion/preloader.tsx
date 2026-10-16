@@ -40,10 +40,15 @@ export function Preloader() {
       gsap
         .timeline({ defaults: { ease: "power3.inOut" }, onComplete: finish })
         .fromTo(".pl-shine", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.55 }, 0)
-        .fromTo(".pl-edge", { left: "0%", autoAlpha: 1 }, { left: "100%", duration: 0.55 }, 0)
+        // Transform in plaats van "left": geen layout-shift
+        .fromTo(
+          ".pl-edge",
+          { x: 0, autoAlpha: 1 },
+          { x: () => root.current?.querySelector<HTMLElement>(".pl-word")?.offsetWidth ?? 0, duration: 0.55 },
+          0
+        )
         .to(".pl-edge", { autoAlpha: 0, duration: 0.1 }, 0.55)
         .fromTo(".pl-shine", { backgroundPosition: "100% 0" }, { backgroundPosition: "0% 0", duration: 0.5, ease: "power2.out" }, 0.4)
-        .to(".pl-word", { letterSpacing: "0.02em", duration: 0.75, ease: "power2.out" }, 0)
         .to(root.current, { clipPath: "inset(0 0 100% 0)", duration: 0.35, ease: "power4.in" }, 0.85)
     },
     { scope: root }

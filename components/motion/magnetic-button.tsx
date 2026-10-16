@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useMotionValue, useSpring } from "motion/react"
+import { m, useMotionValue, useSpring } from "motion/react"
 import { useRef } from "react"
 
 import { useFinePointer, useReducedMotion } from "@/lib/use-media-query"
@@ -40,7 +40,7 @@ export function Magnetic({ children, className, strength = 0.35 }: MagneticProps
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={cn("inline-flex", className)}
       style={active ? { x: springX, y: springY } : undefined}
@@ -48,6 +48,6 @@ export function Magnetic({ children, className, strength = 0.35 }: MagneticProps
       onPointerLeave={reset}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

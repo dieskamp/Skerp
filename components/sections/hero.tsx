@@ -9,7 +9,7 @@ import { Magnetic } from "@/components/motion/magnetic-button"
 import { SplitText } from "@/components/motion/split-text"
 import type { ProgressRef } from "@/components/three/blade"
 import { gsap, useGSAP } from "@/lib/gsap"
-import { onPreloadDone } from "@/lib/preload"
+import { onPreloadDone, PRELOAD_ATTR } from "@/lib/preload"
 import { useMediaQuery, useReducedMotion } from "@/lib/use-media-query"
 
 const HeroCanvas = dynamic(() => import("@/components/three/hero-canvas"), {
@@ -35,17 +35,21 @@ export function Hero() {
     () => {
       if (reducedMotion) return
 
-      // Intro: eyebrow, tekst en knoppen schuiven in na de slogan.
-      const intro = gsap.from(".hero-fade", {
-        y: 40,
-        autoAlpha: 0,
-        stagger: 0.08,
-        duration: 1,
-        delay: 0.6,
-        ease: "expo.out",
-        paused: true,
-      })
-      const stopWaiting = onPreloadDone(() => intro.play())
+      // Intro: eyebrow, tekst en knoppen schuiven in na de slogan. Alleen achter
+      // de preloader; anders staat alles er meteen (geen flits, snelle LCP).
+      let stopWaiting = () => {}
+      if (document.documentElement.hasAttribute(PRELOAD_ATTR)) {
+        const intro = gsap.from(".hero-fade", {
+          y: 40,
+          opacity: 0,
+          stagger: 0.08,
+          duration: 1,
+          delay: 0.6,
+          ease: "expo.out",
+          paused: true,
+        })
+        stopWaiting = onPreloadDone(() => intro.play())
+      }
 
       const words = gsap.utils.toArray<HTMLElement>(".hero-title .word")
 
@@ -63,7 +67,7 @@ export function Hero() {
           },
         })
         .to(".hero-bgword", { xPercent: -45, duration: 1 }, 0)
-        .to(".hero-sub", { y: -80, autoAlpha: 0, duration: 0.18, ease: "power2.in" }, 0.04)
+        .to(".hero-sub", { y: -80, opacity: 0, duration: 0.18, ease: "power2.in" }, 0.04)
         .to(
           words,
           {
@@ -133,6 +137,7 @@ export function Hero() {
             <SplitText
               as="h1"
               trigger="load"
+              visibleUntilPreload
               stagger={0.025}
               className="hero-title mt-6 font-heading text-[3.4rem] leading-[0.88] font-black tracking-tight text-chrome uppercase sm:text-7xl md:text-8xl"
             >

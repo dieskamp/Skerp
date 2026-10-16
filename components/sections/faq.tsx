@@ -1,12 +1,13 @@
 "use client"
 
-import { motion } from "motion/react"
+import { m } from "motion/react"
 import { useRef, useState } from "react"
 import { Accordion as AccordionPrimitive } from "radix-ui"
 
 import { Accordion, AccordionContent, AccordionItem } from "@/components/ui/accordion"
 import { SectionHeading } from "@/components/motion/section-heading"
-import { gsap, useGSAP } from "@/lib/gsap"
+import { gsap } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 
 const items = [
@@ -41,12 +42,12 @@ export function Faq() {
   const [value, setValue] = useState("")
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       if (reducedMotion) return
       gsap.from(".faq-item", {
         x: (i) => (i % 2 === 0 ? -80 : 80),
-        autoAlpha: 0,
+        opacity: 0,
         stagger: 0.08,
         duration: 1,
         ease: "expo.out",
@@ -69,7 +70,7 @@ export function Faq() {
             return (
               <AccordionItem key={it.q} value={it.q} className="faq-item relative border-b border-steel-700">
                 {isOpen ? (
-                  <motion.span
+                  <m.span
                     layoutId="faq-active"
                     aria-hidden="true"
                     className="absolute top-0 -left-4 h-full w-0.5 bg-edge shadow-[0_0_12px_var(--edge)] md:-left-6"
@@ -78,30 +79,30 @@ export function Faq() {
                 ) : null}
                 <AccordionPrimitive.Header className="flex">
                   <AccordionPrimitive.Trigger className="group flex flex-1 items-center gap-5 py-6 text-left">
-                    <span aria-hidden="true" className="font-mono text-xs text-steel-500 transition-colors group-hover:text-edge group-data-[state=open]:text-edge">
+                    <span aria-hidden="true" className="font-mono text-xs text-steel-400 transition-colors group-hover:text-edge group-data-[state=open]:text-edge">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="flex-1 font-heading text-2xl font-bold tracking-tight text-chrome uppercase transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:translate-x-2 md:text-3xl">
                       {it.q}
                     </span>
-                    <motion.span
+                    <m.span
                       aria-hidden="true"
                       animate={{ rotate: isOpen ? 135 : 0 }}
                       transition={{ type: "spring", stiffness: 260, damping: 18 }}
                       className="grid size-10 shrink-0 place-items-center rounded-full border border-steel-600 text-xl leading-none text-chrome transition-colors group-hover:border-edge group-data-[state=open]:border-edge group-data-[state=open]:text-edge"
                     >
                       +
-                    </motion.span>
+                    </m.span>
                   </AccordionPrimitive.Trigger>
                 </AccordionPrimitive.Header>
                 <AccordionContent className="pb-6 pl-10 text-base leading-relaxed text-steel-300">
-                  <motion.p
+                  <m.p
                     initial={false}
                     animate={isOpen ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: -10, filter: "blur(4px)" }}
                     transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   >
                     {it.a}
-                  </motion.p>
+                  </m.p>
                 </AccordionContent>
               </AccordionItem>
             )

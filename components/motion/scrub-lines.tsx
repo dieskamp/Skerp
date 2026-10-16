@@ -2,7 +2,8 @@
 
 import { useRef } from "react"
 
-import { gsap, SplitText, useGSAP } from "@/lib/gsap"
+import { gsap, SplitText } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 
 /**
@@ -13,13 +14,15 @@ export function ScrubLines({ children, className }: { children: React.ReactNode;
   const ref = useRef<HTMLDivElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       const el = ref.current
       if (!el || reducedMotion) return
       const split = SplitText.create(el.querySelectorAll("p"), {
         type: "lines",
         linesClass: "scrub-line",
+        // Alleen regels, geen letters: de tekst blijft gewoon leesbaar voor screenreaders.
+        aria: "none",
         autoSplit: true,
         onSplit: (self) =>
           gsap.fromTo(

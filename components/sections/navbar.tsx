@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { Menu, X } from "lucide-react"
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react"
+import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react"
 
 import { useReducedMotion } from "@/lib/use-media-query"
 import { cn } from "@/lib/utils"
@@ -76,7 +76,7 @@ export function Navbar() {
   const isHidden = hidden && !open && !focusWithin
 
   return (
-    <motion.header
+    <m.header
       ref={headerRef}
       className="fixed inset-x-0 top-0 z-50"
       initial={false}
@@ -99,7 +99,7 @@ export function Navbar() {
           aria-label="Hoofdmenu"
           className="mx-auto flex h-[var(--nav-height)] max-w-6xl items-center justify-between px-5"
         >
-          <Link href="#top" className="flex flex-col items-start leading-none" aria-label="Skerp Slijpservice, naar boven">
+          <Link href="#top" className="flex flex-col items-start leading-none">
             <span className="font-heading text-2xl font-black tracking-tight text-chrome uppercase md:text-3xl">
               SKERP
             </span>
@@ -127,7 +127,7 @@ export function Navbar() {
 
       <AnimatePresence initial={false}>
         {open ? (
-          <motion.div
+          <m.div
             id="mobiel-menu"
             key="mobiel-menu"
             className="overflow-hidden border-b border-steel-700 bg-steel-950/95 backdrop-blur-xl md:hidden"
@@ -139,9 +139,9 @@ export function Navbar() {
             <div className="px-5 py-6">
               <NavLinks className="flex-col items-start gap-5" onNavigate={() => setOpen(false)} />
             </div>
-          </motion.div>
+          </m.div>
         ) : null}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   )
 }

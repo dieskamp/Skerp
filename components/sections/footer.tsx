@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { useRef } from "react"
 
-import { gsap, SplitText, useGSAP } from "@/lib/gsap"
+import { gsap, SplitText } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 
 const links = [
@@ -21,7 +22,7 @@ export function Footer() {
   const root = useRef<HTMLElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       if (reducedMotion) return
       const word = root.current?.querySelector<HTMLElement>(".footer-word")

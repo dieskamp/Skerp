@@ -2,7 +2,8 @@
 
 import { useRef } from "react"
 
-import { gsap, useGSAP } from "@/lib/gsap"
+import { gsap } from "@/lib/gsap"
+import { useIdleGSAP } from "@/lib/use-idle-gsap"
 import { useReducedMotion } from "@/lib/use-media-query"
 
 type RevealProps = {
@@ -14,19 +15,22 @@ type RevealProps = {
   delay?: number
 }
 
-/** Laat inhoud omhoog schuiven en scherp worden zodra het in beeld komt. */
+/**
+ * Laat inhoud omhoog schuiven en scherp worden zodra het in beeld komt.
+ * Bewust opacity (niet visibility): links en knoppen blijven met Tab bereikbaar.
+ */
 export function Reveal({ children, className, stagger, y = 60, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const reducedMotion = useReducedMotion()
 
-  useGSAP(
+  useIdleGSAP(
     () => {
       const el = ref.current
       if (!el || reducedMotion) return
       const targets = stagger !== undefined ? Array.from(el.children) : el
       gsap.from(targets, {
         y,
-        autoAlpha: 0,
+        opacity: 0,
         filter: "blur(10px)",
         duration: 1.1,
         delay,

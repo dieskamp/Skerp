@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useMotionValue, useSpring } from "motion/react"
+import { m, useMotionValue, useSpring } from "motion/react"
 import { useEffect, useRef } from "react"
 
 import { useFinePointer, useReducedMotion } from "@/lib/use-media-query"
@@ -113,7 +113,7 @@ export function TiltCard({ children, className }: { children: React.ReactNode; c
   }
 
   return (
-    <motion.div
+    <m.div
       ref={card}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
@@ -142,6 +142,6 @@ export function TiltCard({ children, className }: { children: React.ReactNode; c
         />
       ) : null}
       <div className="relative [transform:translateZ(30px)]">{children}</div>
-    </motion.div>
+    </m.div>
   )
 }
